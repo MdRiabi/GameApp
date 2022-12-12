@@ -16,6 +16,17 @@ private modals: IModal[] = [];
 
   constructor() { }
 
+
+  //solve the memory leak
+unregister(id:string){
+
+  this.modals = this.modals.filter(
+    element => element.id !==id
+  )
+}
+
+
+
   register(id: string){
     this.modals.push({
       id,
@@ -24,13 +35,27 @@ private modals: IModal[] = [];
     console.log(this.modals)
 
   }
+ /*  !!this.modals.find(element => element.id === id)?.visible 
+ =
+ Boolean(this.modals.find(element => element.id === id)?.visible)
+ */
+  
 
-isModalOpen(){
-  return true;
+isModalOpen(id: string): boolean{
+  return !!this.modals.find(element => element.id === id)?.visible
 }
 
-toggleModal(){
+toggleModal(id:string){
 /*   this.visible = !this.visible
- */}
+ */
+
+const modal = this.modals.find(element =>element.id === id);
+
+if(modal){
+  modal.visible = !modal.visible;
+
+}
+
+}
 
 }
