@@ -21,4 +21,3 @@ import { NavComponent } from './nav/nav.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-disigning a modal 011
