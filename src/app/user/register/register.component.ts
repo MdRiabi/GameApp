@@ -26,4 +26,13 @@ export class RegisterComponent {
 
   });
 
+  showAlert = false;
+  alertMsg = 'Please Wait! Your account is being created...';
+  alertColor = 'blue';
+
+  register(){
+    this.showAlert = true;
+    this.alertColor = 'blue';
+    this.alertMsg = 'Please Wait! Your account is being created...';
+  }
 }
