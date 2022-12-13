@@ -102,5 +102,7 @@
       }
     }
   },
-  "defaultProject": "clips"
+  "cli": {
+    "analytics": "3f6c74fc-1396-4901-add4-89b6a6a58dbe"
+  }
 }
