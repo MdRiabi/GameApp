@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import {AngularFireAuth} from '@angular/fire/compat/auth'
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -12,16 +13,16 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class RegisterComponent {
 
   insubmission = false;
-constructor(private auth: AngularFireAuth, private db:AngularFirestore){
+  constructor(private authService: AuthService) {
 
-}
+  }
 
   name = new FormControl('', [Validators.required, Validators.minLength(3)]);
-  email = new FormControl('', [Validators.required,Validators.email]);
-  age = new FormControl('', [Validators.required,Validators.min(18),Validators.max(100)]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  age = new FormControl('', [Validators.required, Validators.min(18), Validators.max(100)]);
   confirm_password = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.required,Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)]);
-  phoneNumber = new FormControl('',[ Validators.required,Validators.minLength(13),Validators.maxLength(13)]);
+  password = new FormControl('', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)]);
+  phoneNumber = new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]);
 
   registerForm = new FormGroup({
     name: this.name,
@@ -37,21 +38,17 @@ constructor(private auth: AngularFireAuth, private db:AngularFirestore){
   alertMsg = 'Please Wait! Your account is being created...';
   alertColor = 'blue';
 
-  async register(){
+  async register() {
     this.showAlert = true;
     this.alertColor = 'blue';
     this.alertMsg = 'Please Wait! Your account is being created...';
-    const {email,password} = this.registerForm.value;
+
     this.insubmission = true;
-    try{
-      const userCred = await this.auth.createUserWithEmailAndPassword(email   , password );
-    await  this.db.collection('user').add({
-        name: this.name.value,
-        email: this.email.value,
-        age: this.age.value,
-        phoneNumber: this.phoneNumber.value,
-      })
-    }catch(e){
+    try {
+
+      await this.authService.creatUser(this.registerForm.value)
+
+    } catch (e) {
       console.error(e)
       this.alertMsg = 'An unexpected error occurred. Please try again later';
       this.alertColor = 'red';
