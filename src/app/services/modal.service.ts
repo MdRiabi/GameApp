@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { clearImmediate } from 'timers';
 
 interface IModal {
   id: string;
@@ -17,7 +16,7 @@ export class ModalService {
 
   private adsList: string[];
   constructor() {
-    this.adsList = [
+    /* this.adsList = [
       "ads1",
       "ads2",
       "ads3",
@@ -25,14 +24,14 @@ export class ModalService {
       "ads5",
       "",
       "ads6",
-    ];
+    ]; */
   }
 
-  getsheduledAds(intervalInseconds: number): Observable<string> {
+/*  getsheduledAds(intervalInseconds: number): Observable<string> {
     return new Observable<string>((observer) => {
-      /*  observer.next();
+       observer.next();
        observer.error();
-       observer.complete(); */
+       observer.complete(); 
       let counter = 0;
       let adsTimer = setInterval(() => {
         console.log("from setinterval");
@@ -51,9 +50,9 @@ export class ModalService {
       return{
         unsubscribe() {
           // will be called :
-          /* 1- error
+           1- error
           2- complete
-          3- unsubscribe */
+          3- unsubscribe 
           clearInterval(adsTimer);
           
         },
@@ -62,7 +61,7 @@ export class ModalService {
 
 
     });
-  }
+  } */
 
 
   //solve the memory leak

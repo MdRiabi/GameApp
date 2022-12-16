@@ -8,13 +8,13 @@ import { ModalService } from './services/modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit,OnDestroy {
-private abc:Subscription;
+export class AppComponent  {
+private abc!:Subscription;
   constructor(private modalServ: ModalService) {
 
   }
 
-  ngOnInit(): void {
+ /*  ngOnInit(): void {
     /* 
      let observer = {
        next: (data: string) => {
@@ -71,7 +71,7 @@ private abc:Subscription;
       },
     } */
 
-    let abc: Subscription =   this.modalServ.getsheduledAds(2).subscribe({
+  /*   let abc: Subscription =   this.modalServ.getsheduledAds(2).subscribe({
       next: (data: string) => {
         console.log(data);
       },
@@ -83,14 +83,14 @@ private abc:Subscription;
       },
     }
     )
-    abc.unsubscribe()
+    /* abc.unsubscribe() */
 
-  }
+ /* } */
 
-  ngOnDestroy(): void {
+ /*  ngOnDestroy(): void {
     this.abc.unsubscribe();
     
-  }
+  } */
 
 }
 
