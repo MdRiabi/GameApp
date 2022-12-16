@@ -15,13 +15,21 @@ public async creatUser(userData: IUser){
   if(!userData.password) {
     throw new Error("Password not provided!")    
       }
-  
-  const userCred = await this.auth.createUserWithEmailAndPassword(userData.email   , userData.password );
-  await  this.usersCollexction.add({
+   
+  const userCred = await this.auth.createUserWithEmailAndPassword(userData.email, userData.password );
+
+  if(!userCred.user){
+throw new Error("user can't be found");
+  }
+  await  this.usersCollexction.doc(userCred.user.uid).set({
       name: userData.name,
       email: userData.email,
       age: userData.age,
       phoneNumber: userData.phoneNumber,
+    })
+
+    await userCred.user.updateProfile({
+      displayName: userData.name
     })
 
 }
