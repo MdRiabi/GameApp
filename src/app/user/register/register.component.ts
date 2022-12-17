@@ -13,7 +13,7 @@ import IUser from 'src/app/models/user.model';
 })
 export class RegisterComponent {
   
-  insubmission = false;
+  
   constructor(private authService: AuthService) {
 
   }
@@ -38,6 +38,7 @@ export class RegisterComponent {
   showAlert = false;
   alertMsg = 'Please Wait! Your account is being created...';
   alertColor = 'blue';
+  insubmission = false;
 
   async register() {
     this.showAlert = true;
