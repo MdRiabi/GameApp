@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ModalService } from './services/modal.service';
+
+import { AuthService } from './services/auth.service';
+
 
 
 @Component({
@@ -9,8 +10,8 @@ import { ModalService } from './services/modal.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-private abc!:Subscription;
-  constructor(private modalServ: ModalService) {
+
+  constructor(public authServ:AuthService ) {
 
   }
 

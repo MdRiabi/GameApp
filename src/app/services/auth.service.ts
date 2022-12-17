@@ -14,9 +14,11 @@ export class AuthService {
     this.usersCollexction = db.collection('user');
    /*  auth.user.subscribe(console.log); */
    //verify if user is authenticate or not
-    this.isAuthenticated$ = auth.user.pipe(
+   
+   this.isAuthenticated$ = auth.user.pipe(
       map( user => !!user)
     )
+    
     // the result is a boolean ture if user is authenticate 
    }
  
