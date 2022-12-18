@@ -249,4 +249,4 @@
   </div>
 </section>
 
-<app-auth-modal *ngIf="!(authServ.isAuthenticated$ | async)" ></app-auth-modal>
+<app-auth-modal *ngIf="!(authServ.isAuthenticatedWithDelay$ | async)" ></app-auth-modal>
