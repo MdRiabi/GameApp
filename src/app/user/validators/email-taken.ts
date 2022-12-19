@@ -3,11 +3,13 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AbstractControl, AsyncValidator, ValidationErrors } from "@angular/forms";
 import { Observable } from "rxjs";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class EmailTaken implements AsyncValidator {
     constructor(private angularFireAuth: AngularFireAuth) { }
 
-    validate(control: AbstractControl): Promise<ValidationErrors | null> {
+    validate = (control: AbstractControl): Promise<ValidationErrors | null>=> {
         return this.angularFireAuth.fetchSignInMethodsForEmail(control.value).then(
             response => response.length ? { emailTaken: true } : null
 
