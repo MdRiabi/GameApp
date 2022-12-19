@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import IUser from 'src/app/models/user.model';
+import { RegisterValidators } from '../validators/register-validators';
 
 
 
@@ -33,7 +34,7 @@ export class RegisterComponent {
     confirm_password: this.confirm_password,
     phoneNumber: this.phoneNumber,
 
-  });
+  },[RegisterValidators.match('password','confirm_password')]);
 
   showAlert = false;
   alertMsg = 'Please Wait! Your account is being created...';
