@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import {  Observable } from 'rxjs';
 import {  delay, map } from 'rxjs/operators';
 import IUser from '../models/user.model';
@@ -11,7 +12,10 @@ export class AuthService {
   private usersCollexction: AngularFirestoreCollection<IUser>;
   public isAuthenticated$: Observable<boolean>;
   public isAuthenticatedWithDelay$: Observable<boolean>;
-  constructor(private auth: AngularFireAuth, private db:AngularFirestore) {
+  constructor(
+    private auth: AngularFireAuth, 
+    private db:AngularFirestore,
+    private router:Router) {
     this.usersCollexction = db.collection('user');
    /*  auth.user.subscribe(console.log); */
    //verify if user is authenticate or not
@@ -49,6 +53,18 @@ throw new Error("user can't be found");
     })
 
 }
+
+public async logout($event?: Event){
+
+if($event){
+    $event.preventDefault();
+}
+
+  await  this.auth.signOut();
+  await this.router.navigateByUrl('/');
+}
+
+
 
 }
 

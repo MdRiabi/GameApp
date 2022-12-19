@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
+
 import { AuthService } from '../services/auth.service';
 import { ModalService } from '../services/modal.service';
 
@@ -14,8 +13,7 @@ export class NavComponent implements OnInit {
   constructor(
     public modalServ: ModalService, 
     public authServ: AuthService,
-    public angularFireAuth: AngularFireAuth,
-    public router:Router) {
+    ) {
    /* this.authServ.isAuthenticated$.subscribe(status =>{
     this.isAuthenticated = status
    }) */
@@ -29,12 +27,6 @@ export class NavComponent implements OnInit {
     $evnt.preventDefault();
     this.modalServ.toggleModal('auth');
   }
-  async logout($event: Event){
-    $event.preventDefault();
-    await  this.angularFireAuth.signOut();
-    await this.router.navigateByUrl('/');
-
-
-  }
+  
 
 }
