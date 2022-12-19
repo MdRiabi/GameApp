@@ -7,8 +7,11 @@ import { Observable } from "rxjs";
 export class EmailTaken implements AsyncValidator {
     constructor(private angularFireAuth: AngularFireAuth) { }
 
-    validate(control: AbstractControl<any, any>): Promise<ValidationErrors> | Observable<ValidationErrors> {
-        throw new Error("Method not implemented.");
+    validate(control: AbstractControl): Promise<ValidationErrors | null> {
+        return this.angularFireAuth.fetchSignInMethodsForEmail(control.value).then(
+            response => response.length ? { emailTaken: true } : null
+
+        )
     }
 
 }
