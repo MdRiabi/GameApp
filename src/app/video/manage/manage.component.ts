@@ -17,8 +17,14 @@ this.videoOrder = params.sort ==='2' ? params.sort : '1';
   }
   sort(event: Event) {
     const { value } = (event.target as HTMLSelectElement);
-    this.router.navigateByUrl(`/manage?sort=${value}`);
-
+  /*   navigateByUrl exemple */
+    /* this.router.navigateByUrl(`/manage?sort=${value}`); */
+this.router.navigate([],{
+  relativeTo: this.route,
+  queryParams:{
+    sort:value
+  }
+})
 
   }
 
