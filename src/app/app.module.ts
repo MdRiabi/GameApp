@@ -25,7 +25,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    
     UserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
