@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { validateArgCount } from '@firebase/util';
+import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-upload',
@@ -20,7 +21,7 @@ uploadForm = new FormGroup({
   title: this.title
 })
 
-  constructor() { }
+  constructor(private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
   }
@@ -39,6 +40,10 @@ this.nextStep = true;
   }
 
   uploadFile(){
-    console.log('file uploaded');
+    /* console.log('file uploaded'); */
+    // for generating a random id
+    const clipFileName = uuid()
+    const clipPath = `clips/${clipFileName}.mp4`
+    this.storage.upload(clipPath , this.file);
   }
 }
