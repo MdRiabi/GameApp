@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { last } from 'rxjs';
 import { v4 as uuid } from 'uuid';
 
 @Component({
@@ -17,6 +18,7 @@ export class UploadComponent implements OnInit {
   alertMsg = 'Please Wait! Your clip is being uploaded.';
   isSubmission = false;
   percentage = 0;
+  showPercentage = false;
 
 
   title = new FormControl('', {
@@ -50,17 +52,34 @@ export class UploadComponent implements OnInit {
   uploadFile() {
     /* console.log('file uploaded'); */
     // for generating a random id
-    this.showAlert = true ;
+    this.showAlert = true;
     this.alertColor = 'blue';
     this.alertMsg = 'Please Wait! Your clip is being uploaded.';
     this.isSubmission = true;
-  
+    this.showPercentage = true;
+
 
     const clipFileName = uuid()
     const clipPath = `clips/${clipFileName}.mp4`
     const task = this.storage.upload(clipPath, this.file);
-    task.percentageChanges().subscribe(progress =>{
-      this.percentage = progress as number /100
+    task.percentageChanges().subscribe(progress => {
+      this.percentage = progress as number / 100
     })
+    task.snapshotChanges().pipe(
+      last()
+    ).subscribe({
+      next: (snapshot) => {
+        this.alertColor = 'green'
+        this.alertMsg = 'success! Your clips is now ready to share with the world'
+        this.showPercentage = false
+      },
+      error: () => {
+        this.alertColor = 'red'
+        this.alertMsg = 'upload failed! please try again later'
+        this.isSubmission = true
+        this.showPercentage = false
+      }
+    })
+
   }
 }
